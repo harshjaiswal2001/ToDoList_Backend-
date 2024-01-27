@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title%>
+  </title>
+  <script src="https://kit.fontawesome.com/7c4dc178f1.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <h1>
+    <%= title%>
+  </h1>
+  <!-- main is for ToDoList main content -->
+  <main>
+    <!-- This section for the details for adding tasks in the list -->
+    <section style="margin-bottom: 10px;">
+      <!-- This form is for the adding task -->
+      <form action="/add_task" method="post">
+        <div class="cont1">
+          <label for="">Description</label>
+          <input type="text" name="desc" placeholder="Enter the task" required>
+        </div>
+        <hr>
+        <div class="cont2">
+          <div class="cont">
+            <label for="">Category</label>
+            <select name="cate" id="">
+              <option value="Personal">Personal</option>
+              <option value="Profession">Academics</option>
+              <option value="Social">Social</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="cont">
+            <label for="">Due Date</label>
+            <input type="date" name="dob" id="">
+          </div>
+        </div>
+        <hr>
+        <button type="submit" class="add">&#43;ADD TASK</button>
+      </form>
+    </section>
+    <!-- This section for the details for deleting tasks in the list -->
+    <section>
+      <!-- This form is for the deleting task -->
+      <form action="/delete_task" method="get" class="formDel">
+
+        <% if(history_task.length!=0){ %>
+
+          <!-- loop to iterate over the tasks-->
+          <% for(let i of history_task) { %>
+            <hr>
+            <div class="del_container">
+              <input type="checkbox" class="select-task" id="checkbox" name="<%= i._id%>">
+              <h3>
+                <%= i.desc %>
+              </h3>
+              <p><i class="far fa-calendar-alt"></i>
+                <%= i.dob%>
+              </p>
+              <h4>
+                <%= i.cate %>
+              </h4>
+            </div>
+            <button type="submit" class="del"><i class="fa fa-trash-o" aria-hidden="true"></i>DELETE TASK</button>
+            <% } %>
+              <% } %>
+
+
+                <!-- if task list is empty then no task added message will be printed -->
+                <% if( history_task.length==0 ) {%>
+                  <h1 style="text-align: center;">No task Added Yet!</h1>
+
+                  <% } %>
+      </form>
+    </section>
+  </main>
+
+</body>
+
+</html>
